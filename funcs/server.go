@@ -5,10 +5,10 @@ import (
 	"net"
 )
 
-var conn_type = "tcp"
+var connection_type = "tcp"
 
 func CreateServerPort(port string) {
-	ls, err := net.Listen(conn_type, port)
+	ls, err := net.Listen(connection_type, port)
 	if err != nil {
 		log.Fatal(err)
 	}
