@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	port := ":8989"
+	port := ":8080"
 	if len(os.Args) > 2 {
-		fmt.Println("[USAGE]: ./TCPChat $port")
+		fmt.Println("[USAGE]: To start the TCP Chat server, run: ./TCPChat %s\n", port)
 		return
 	} else if len(os.Args) == 2 {
 		port = ":" + os.Args[1]
