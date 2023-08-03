@@ -14,5 +14,5 @@ func main() {
 	} else if len(os.Args) == 2 {
 		port = ":" + os.Args[1]
 	}
-	funcs.CreateServerPort(port)
+	funcs.StartTCPServer(port)
 }

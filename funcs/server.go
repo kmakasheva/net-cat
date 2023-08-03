@@ -7,7 +7,7 @@ import (
 
 var conn_type = "tcp"
 
-func CreateServerPort(port string) {
+func StartTCPServer(port string) {
 	listener, err := net.Listen(conn_type, port)
 	if err != nil {
 		log.Fatal(err)
