@@ -8,7 +8,7 @@ import (
 var connection_type = "tcp"
 
 func StartTCPServer(port string) {
-	listener, err := net.Listen(conn_type, port)
+	listener, err := net.Listen(connection_type, port)
 	if err != nil {
 		log.Fatal(err)
 	}
