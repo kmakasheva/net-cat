@@ -49,7 +49,7 @@ func GetName(conn net.Conn) string {
 	}
 	for client := range clients {
 		if client == temp {
-			fmt.Fprintf(conn, "User already exist\n")
+			fmt.Fprintf(conn, "User already exists\n")
 			return GetName(conn)
 		}
 	}
