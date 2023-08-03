@@ -8,24 +8,7 @@ import (
 	"strings"
 )
 
-func NewMessege(msg string, conn net.Conn, cl Client, time string) Message {
-	return Message{
-		text:    msg,
-		address: cl.addr,
-		name:    cl.name,
-		time:    time,
-		history: messageHistory,
-	}
-}
 
-func Welcome(conn net.Conn) {
-	file, err := os.ReadFile("logo.txt")
-	if err != nil {
-		fmt.Printf("couldn't read this file")
-	}
-	imagetxt := string(file)
-	conn.Write([]byte("Welcome to TCP-Chat!\n" + imagetxt + "\n"))
-}
 
 func GetName(conn net.Conn) string {
 	conn.Write([]byte("[Enter your name]:"))
@@ -63,4 +46,24 @@ func IsCorrect(s string, conn net.Conn, time string, username string) bool {
 		}
 	}
 	return true
+}
+
+
+func Welcome(conn net.Conn) {
+	file, err := os.ReadFile("logo.txt")
+	if err != nil {
+		fmt.Printf("couldn't read this file")
+	}
+	imagetxt := string(file)
+	conn.Write([]byte("Welcome to TCP-Chat!\n" + imagetxt + "\n"))
+}
+
+func NewMessege(msg string, conn net.Conn, cl Client, time string) Message {
+	return Message{
+		text:    msg,
+		address: cl.addr,
+		name:    cl.name,
+		time:    time,
+		history: messageHistory,
+	}
 }
