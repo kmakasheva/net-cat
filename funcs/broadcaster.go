@@ -9,7 +9,7 @@ func Broadcaster() {
 			clientMutex.Lock()
 			for _, client := range clients {
 				if msg.name == client.name {
-					for _, w := range historytext {
+					for _, w := range messageHistory{
 						fmt.Fprintf(client.conn, "%s", "\r")
 						fmt.Fprintf(client.conn, "%s[%s][%s]:", w, msg.time, client.name)
 					}
@@ -29,7 +29,7 @@ func Broadcaster() {
 				fmt.Fprintf(client.conn, "[%s][%s]:", msg.time, client.name)
 			}
 			clientMutex.Unlock()
-		case msg := <-leaving:
+		case msg := <-leaveChannel :
 			clientMutex.Lock()
 			for _, client := range clients {
 				if client.name != msg.name {

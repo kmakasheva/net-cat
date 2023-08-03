@@ -14,7 +14,7 @@ func NewMessege(msg string, conn net.Conn, cl Client, time string) Message {
 		address: cl.addr,
 		name:    cl.name,
 		time:    time,
-		history: historytext,
+		history: messageHistory,
 	}
 }
 

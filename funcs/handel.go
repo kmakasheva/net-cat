@@ -47,13 +47,13 @@ func HandelConn(conn net.Conn) {
 		}
 		text := fmt.Sprintf("[%s][%s]:%s\n", time, nickname, input.Text())
 		clientMutex.Lock()
-		historytext = append(historytext, text)
+		messageHistory = append(messageHistory, text)
 		messageChannel <- NewMessege(input.Text(), conn, tempClient, time)
 		clientMutex.Unlock()
 	}
 	clientMutex.Lock()
 	delete(clients, nickname)
-	leaving <- NewMessege("has left our chat...", conn, tempClient, timeClient)
+	leaveChannel  <- NewMessege("has left our chat...", conn, tempClient, timeClient)
 	conn.Close()
 	clientMutex.Unlock()
 }

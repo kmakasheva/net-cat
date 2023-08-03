@@ -8,8 +8,8 @@ import (
 var (
 	clientMutex       sync.Mutex
 	clients     = make(map[string]Client)
-	historytext = []string{}
-	leaving     = make(chan Message)
+	messageHistory = []string{}
+	leaveChannel     = make(chan Message)
 	messageChannel   = make(chan Message)
 	joinChannel        = make(chan Message)
 )
