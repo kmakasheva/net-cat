@@ -14,9 +14,8 @@ var (
 	join        = make(chan Message)
 )
 
-// cтруктура клиента
 type Client struct {
-	// имя пользователя
+	
 	name string
 	// айпи адрес пользователя
 	addr string
