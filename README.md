@@ -37,4 +37,4 @@ _)      \.___.,|     .'
 
 ### author
 
-@dkazgozh
+Kamila & Sofya
