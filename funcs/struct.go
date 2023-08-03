@@ -17,22 +17,14 @@ var (
 type Client struct {
 	
 	name string
-	// айпи адрес пользователя
 	addr string
-	// интерфейс конекшна
 	conn net.Conn
 }
 
-// cтруктура сообщения
 type Message struct {
-	// текст сообщения
 	text string
-	// айпи адрес пользователя
 	address string
-	// имя пользователя
 	name string
-	// время
 	time string
-	// история сообщении
 	history []string
 }
