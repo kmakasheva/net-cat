@@ -6,7 +6,7 @@ func Broadcaster() {
 	for {
 		select {
 		case msg := <-join:
-			mutex.Lock()
+			clientMutex.Lock()
 			for _, client := range clients {
 				if msg.name == client.name {
 					for _, w := range historytext {
@@ -18,9 +18,9 @@ func Broadcaster() {
 					fmt.Fprintf(client.conn, "\n%s %s\n[%s][%s]:", msg.name, msg.text, msg.time, client.name)
 				}
 			}
-			mutex.Unlock()
+			clientMutex.Unlock()
 		case msg := <-messages:
-			mutex.Lock()
+			clientMutex.Lock()
 			for _, client := range clients {
 				if msg.name != client.name {
 					fmt.Fprintf(client.conn, "\r[%s][%s]:\r", msg.time, msg.name)
@@ -28,15 +28,15 @@ func Broadcaster() {
 				}
 				fmt.Fprintf(client.conn, "[%s][%s]:", msg.time, client.name)
 			}
-			mutex.Unlock()
+			clientMutex.Unlock()
 		case msg := <-leaving:
-			mutex.Lock()
+			clientMutex.Lock()
 			for _, client := range clients {
 				if client.name != msg.name {
 					fmt.Fprintf(client.conn, "\n%s %s\n[%s][%s]:", msg.name, msg.text, msg.time, client.name)
 				}
 			}
-			mutex.Unlock()
+			clientMutex.Unlock()
 		}
 	}
 }

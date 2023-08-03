@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	mutex       sync.Mutex
+	clientMutex       sync.Mutex
 	clients     = make(map[string]Client)
 	historytext = []string{}
 	leaving     = make(chan Message)
