@@ -16,20 +16,20 @@ func HandelConn(conn net.Conn) {
 		addr: conn.RemoteAddr().String(),
 		conn: conn,
 	}
-	mutex.Lock()
+	clientMutex.Lock()
 	clients[nickname] = tempClient
 	if len(clients) > 10 {
-		mutex.Lock()
+		clientMutex.Lock()
 		tempClient.conn.Write([]byte("Chat is full!"))
 		delete(clients, nickname)
 		tempClient.conn.Close()
-		mutex.Unlock()
+		clientMutex.Unlock()
 		return
 	}
-	mutex.Unlock()
-	mutex.Lock()
-	join <- NewMessege("has joined our chat...", conn, tempClient, timeClient)
-	mutex.Unlock()
+	clientMutex.Unlock()
+	clientMutex.Lock()
+	joinChannel  <- NewMessege("has joined our chat...", conn, tempClient, timeClient)
+	clientMutex.Unlock()
 	fmt.Fprintf(conn, "[%s][%s]:", timeClient, nickname)
 	input := bufio.NewScanner(conn)
 
@@ -46,14 +46,14 @@ func HandelConn(conn net.Conn) {
 			continue
 		}
 		text := fmt.Sprintf("[%s][%s]:%s\n", time, nickname, input.Text())
-		mutex.Lock()
-		historytext = append(historytext, text)
-		messages <- NewMessege(input.Text(), conn, tempClient, time)
-		mutex.Unlock()
+		clientMutex.Lock()
+		messageHistory = append(messageHistory, text)
+		messageChannel <- NewMessege(input.Text(), conn, tempClient, time)
+		clientMutex.Unlock()
 	}
-	mutex.Lock()
+	clientMutex.Lock()
 	delete(clients, nickname)
-	leaving <- NewMessege("has left our chat...", conn, tempClient, timeClient)
+	leaveChannel  <- NewMessege("has left our chat...", conn, tempClient, timeClient)
 	conn.Close()
-	mutex.Unlock()
+	clientMutex.Unlock()
 }
