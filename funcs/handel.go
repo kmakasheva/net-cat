@@ -28,7 +28,7 @@ func HandelConn(conn net.Conn) {
 	}
 	clientMutex.Unlock()
 	clientMutex.Lock()
-	join <- NewMessege("has joined our chat...", conn, tempClient, timeClient)
+	joinChannel  <- NewMessege("has joined our chat...", conn, tempClient, timeClient)
 	clientMutex.Unlock()
 	fmt.Fprintf(conn, "[%s][%s]:", timeClient, nickname)
 	input := bufio.NewScanner(conn)
@@ -48,7 +48,7 @@ func HandelConn(conn net.Conn) {
 		text := fmt.Sprintf("[%s][%s]:%s\n", time, nickname, input.Text())
 		clientMutex.Lock()
 		historytext = append(historytext, text)
-		messages <- NewMessege(input.Text(), conn, tempClient, time)
+		messageChannel <- NewMessege(input.Text(), conn, tempClient, time)
 		clientMutex.Unlock()
 	}
 	clientMutex.Lock()

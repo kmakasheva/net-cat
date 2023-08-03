@@ -5,7 +5,7 @@ import "fmt"
 func Broadcaster() {
 	for {
 		select {
-		case msg := <-join:
+		case msg := <-joinChannel :
 			clientMutex.Lock()
 			for _, client := range clients {
 				if msg.name == client.name {
@@ -19,7 +19,7 @@ func Broadcaster() {
 				}
 			}
 			clientMutex.Unlock()
-		case msg := <-messages:
+		case msg := <-messageChannel:
 			clientMutex.Lock()
 			for _, client := range clients {
 				if msg.name != client.name {

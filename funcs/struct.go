@@ -10,8 +10,8 @@ var (
 	clients     = make(map[string]Client)
 	historytext = []string{}
 	leaving     = make(chan Message)
-	messages    = make(chan Message)
-	join        = make(chan Message)
+	messageChannel   = make(chan Message)
+	joinChannel        = make(chan Message)
 )
 
 type Client struct {
